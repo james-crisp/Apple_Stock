@@ -44,9 +44,9 @@ def check_available(url_check):
     #button = driver.find_element_by_class_name("rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink")
     #button.click()
     
-    wait = WebDriverWait(driver, 100)
-    age = wait.until(EC.visibility_of_element_located((driver.find_element_by_class_name("as-purchaseinfo-dudeinfo-label"))))
-    age.click()
+    #wait = WebDriverWait(driver, 100)
+    #age = wait.until(EC.visibility_of_element_located((driver.find_element_by_class_name("as-purchaseinfo-dudeinfo-label"))))
+    #age.click()
     
     #button = driver.find_element_by_class_name("as-purchaseinfo-dudeinfo-label")
     #button.click()
@@ -60,10 +60,24 @@ def check_available(url_check):
     
     #<span class="as-purchaseinfo-dudeinfo-suffixlabel">Delivers to <button class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink" data-autom="deliveryDateChecker" data-ase-overlay="dude-overlay" data-ase-click="show">27514</button></span>
     
+    #inputElement = driver.find_element_by_id("postalCode")
+    #inputElement.send_keys('27514')
+    #inputElement.submit()
+    
+    #button = driver.find_element_by_class_name("rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink")
+    #button.click()
+    
+    #<button class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink" data-autom="deliveryDateChecker" data-ase-overlay="dude-overlay" data-ase-click="show">27514</button>
+    
+    time.sleep(5)
+    #button = driver.find_element_by_class_name("as-pruchaseinfo-dudeinfo-label")
+    button = driver.find_element_by_xpath('//div[@class="as-purchaseinfo-dudeinfo-dude2"]//span[@class="as-purchaseinfo-dudeinfo-suffixlabel"]//button[@class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink"]')
+    button.click()
+    #//span[@class="as-purhcaseinfo-dudeinfo-label"]
     inputElement = driver.find_element_by_id("postalCode")
     inputElement.send_keys('27514')
     inputElement.submit()
-    time.sleep(1)
+    
     html = driver.page_source
     driver.quit()
 
@@ -88,21 +102,6 @@ def check_available(url_check):
 
 
 url1 = "https://www.apple.com/shop/buy-mac/macbook-pro/14-inch-space-gray-8-core-cpu-14-core-gpu-512gb#"
-url2 = "https://www.apple.com/shop/buy-mac/macbook-pro/13-inch-space-gray-apple-m1-chip-with-8-core-cpu-and-8-core-gpu-256gb#"
-url3 = "https://www.apple.com/shop/buy-mac/macbook-pro/13-inch-space-gray-apple-m1-chip-with-8-core-cpu-and-8-core-gpu-512gb#"
-url4 = "https://www.apple.com/shop/buy-mac/macbook-pro/13-inch-silver-apple-m1-chip-with-8-core-cpu-and-8-core-gpu-256gb#"
 
-
-model_name = [""]*4
-in_stock = [False]*4
-
-def fill_stock(urls_check):
-    n = len(urls_check)
-    for x in range(n):
-        in_stock[x] = check_available(urls_check[x])
-
-model_urls = [url1,url2,url3,url4]
-
-fill_stock(model_urls)
-print(in_stock)
+check_available(url1)
 
