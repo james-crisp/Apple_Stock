@@ -83,15 +83,28 @@ def check_available(url_check):
     #button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//div[@class="as-purchaseinfo-dudeinfo-dude2"]//span[@class="as-purchaseinfo-dudeinfo-suffixlabel"]//button[@class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink"]')))
     #button.click()
     
-    button = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink"]')))
-    button.submit()
+    button = WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="rf-pickup-quote-overlay-trigger as-retailavailabilitytrigger-infobutton retail-availability-search-trigger as-buttonlink"]')))
+    button.click()
+    
+    #button = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@type="submit"]')))
+    #button.click()
     
    # <button type="button" class="rf-pickup-quote-overlay-trigger as-retailavailabilitytrigger-infobutton retail-availability-search-trigger as-buttonlink" data-ase-overlay="buac-overlay" data-ase-click="show">Apple Crabtree Valley Mall</button>
     #<button class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink" data-autom="deliveryDateChecker" data-ase-overlay="dude-overlay" data-ase-click="show">27601†† </button>
-    time.sleep(5)
-    inputElement = driver.find_element_by_id("postalCode")
-    inputElement.send_keys('27514')
-    inputElement.submit()
+    
+    zipcode_input = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ii_searchreset"]')))
+    #inputElement = driver.find_element_by_id("ii_searchreset")
+    zipcode_input.clear()
+    zipcode_input.send_keys('27517')
+    search_button = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[@id="as-retailavailabilitysearch-searchbutton"]')))
+    search_button.click()
+    
+    store_text = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="as-storeitem-info small-12 column"]')))
+    print(store_text.text)
+    
+    avail_text = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="as-storeitem-indicatortext large-12 small-6 column as-retailavailability-text ships-to-store "]')))
+    print(avail_text.text)
+    
     
     html = driver.page_source
     driver.quit()
@@ -101,7 +114,7 @@ def check_available(url_check):
     results = soup.find(id="actiontray")
 
     #print(results.prettify())
-
+    
     stock_elements = results.find("span", class_="as-retailavailabilitytrigger-value")
     #print(stock_elements)
     #print(stock_elements.text)
