@@ -44,18 +44,18 @@ def check_available(url_check):
     #button = driver.find_element_by_class_name("rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink")
     #button.click()
     
-    #wait = WebDriverWait(driver, 10)
-    #age = wait.until(EC.visibility_of_element_located((driver.find_element_by_class_name("rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink"))))
-    #age.click()
+    wait = WebDriverWait(driver, 100)
+    age = wait.until(EC.visibility_of_element_located((driver.find_element_by_class_name("as-purchaseinfo-dudeinfo-label"))))
+    age.click()
     
-    #button = driver.find_element_by_class_name("as-purchaseinfo-dudeinfo-suffixlabel")
+    #button = driver.find_element_by_class_name("as-purchaseinfo-dudeinfo-label")
     #button.click()
     
-    #button = driver.find_element(By.CSS_SELECTOR("button.rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink"))
+    #button = driver.find_element(By.CSS_SELECTOR("#actiontray > div > div.toggletray > div.as-actiontray-deliverydates > div > span.as-purchaseinfo-dudeinfo-suffixlabel > button"))
     #button.click()
     
-    button = driver.find_element(By.CSS_SELECTOR("button.rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink"))
-    button.click()
+    #button = driver.find_element(By.XPATH, "/html/body/div[2]/div[8]/div[1]/form/div[3]/div/div[1]/div[1]/div/span[1]")
+    #button.click()
 
     
     #<span class="as-purchaseinfo-dudeinfo-suffixlabel">Delivers to <button class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink" data-autom="deliveryDateChecker" data-ase-overlay="dude-overlay" data-ase-click="show">27514</button></span>
