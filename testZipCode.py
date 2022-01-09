@@ -95,7 +95,7 @@ def check_available(url_check):
     zipcode_input = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ii_searchreset"]')))
     #inputElement = driver.find_element_by_id("ii_searchreset")
     zipcode_input.clear()
-    zipcode_input.send_keys('27517')
+    zipcode_input.send_keys('27514')
     search_button = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[@id="as-retailavailabilitysearch-searchbutton"]')))
     search_button.click()
     
