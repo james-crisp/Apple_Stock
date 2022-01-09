@@ -28,27 +28,28 @@ def check_available(url_check, zipzip):
     options = Options()
     options.headless = True
     
-    driver = webdriver.Firefox()
-    driver.implicitly_wait(0.5)
     
-    driver.get(url_check)
     
     def refresh():
         try:
+            driver = webdriver.Firefox()
+            driver.implicitly_wait(0.5)
+            driver.get(url_check)
+            
             my_path = '//button[@class="rf-pickup-quote-overlay-trigger as-retailavailabilitytrigger-infobutton retail-availability-search-trigger as-buttonlink"]'
             ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
-            WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, my_path))).click()
+            WebDriverWait(driver, 2,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, my_path))).click()
     
             #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="rf-pickup-quote-overlay-trigger as-retailavailabilitytrigger-infobutton retail-availability-search-trigger as-buttonlink"]'))).click()
     
-            zipcode_input = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ii_searchreset"]')))
+            zipcode_input = WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ii_searchreset"]')))
     
             zipcode_input.clear()
             zipcode_input.send_keys(str(zipzip))
-            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[@id="as-retailavailabilitysearch-searchbutton"]'))).click()
+            WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//button[@id="as-retailavailabilitysearch-searchbutton"]'))).click()
     
     
-            avail_text = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="as-storeitem-indicatortext large-12 small-6 column as-retailavailability-text ships-to-store "]')))
+            avail_text = WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="as-storeitem-indicatortext large-12 small-6 column as-retailavailability-text ships-to-store "]')))
             availability = avail_text.text
     
             driver.quit()
@@ -56,7 +57,6 @@ def check_available(url_check, zipzip):
     
         except:
             driver.quit()
-            driver.get(url_check)
             refresh()
             
     ans = refresh()
@@ -100,7 +100,12 @@ def runner():
     print(sch)
     for x in range(len(urls_array)):
         ach = check_available(urls_array[x],zipzip)
-        print(ach)
+        if ach is None:
+            print("Available")
+            x = x - 1
+        else:
+            print(ach)
+            print(type(ach))
 
 
 runner()
