@@ -24,8 +24,13 @@ url8 = "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch-silver-10-core-cp
 url9 = "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch-silver-10-core-cpu-16-core-gpu-1tb#"
 url10 = "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch-silver-10-core-cpu-32-core-gpu-1tb#"
 
+#Macbook Airs
+url11 = "https://www.apple.com/shop/buy-mac/macbook-air/space-gray-apple-m1-chip-with-8-core-cpu-and-8-core-gpu-512gb#"
+url12 = "https://www.apple.com/shop/buy-mac/macbook-air/gold-apple-m1-chip-with-8-core-cpu-and-8-core-gpu-512gb#"
+url13 = "https://www.apple.com/shop/buy-mac/macbook-air/silver-apple-m1-chip-with-8-core-cpu-and-8-core-gpu-512gb#"
 
-urls_array = [url1,url2,url3,url4,url5,url6,url7,url8,url9,url10]
+
+urls_array = [url1,url2,url3,url4,url5,url6,url7,url8,url9,url10,url11,url12,url13]
 
 
 

@@ -12,8 +12,6 @@ from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import TimeoutException
 #from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -42,14 +40,20 @@ def change_zip(driver,zipzip):
         driver.execute_script("arguments[0].click();", b)
     
     except StaleElementReferenceException:
+        time.sleep(1)
         return change_zip(driver,zipzip)
     
     #time.sleep(5) error checking
     return
 
 def check_store(driver):
-    pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/button'
-    store_name = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, pathth))).text
+    try:
+        pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/button'
+        store_name = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, pathth))).text
+    except TimeoutException:
+        driver.refresh()
+        return check_store(driver)
+        
     return store_name
 
 
@@ -58,19 +62,21 @@ def check_available(driver):
         #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]'
         #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/span'
         #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/text()'
-        
-        #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/span'
-        classy ="as-retailavailabilitytrigger-value"
-        #check_item = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, pathth))).text
+        time.sleep(1)
+        pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]'
+        #classy ="as-retailavailabilitytrigger-value"
+        #classy ="as-pickup-quote-availability-quote"
+        check_item = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, pathth))).text
         #check_item = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, classy))).text
-        
-        check_item = WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.CLASS_NAME, classy)))
-        
+        #driver.refresh()
+        #check_item = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, classy))).text
+        #time.sleep(1)
     except (TimeoutException, StaleElementReferenceException):
+        time.sleep(1)
         driver.refresh()
         return check_available(driver)
         
-    return len(check_item)
+    return check_item
 
 
 def runner():
@@ -87,7 +93,7 @@ def runner():
     time.sleep(1)
     driver.refresh()
     print(check_store(driver))
-    for x in range(10,len(urls_array)):
+    for x in range(0,len(urls_array)):
         time.sleep(1)
         driver.get(urls_array[x])
         print(check_available(driver))
