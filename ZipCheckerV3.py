@@ -55,13 +55,22 @@ def check_store(driver):
 
 def check_available(driver):
     try:
-        pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]'
-        check_item = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, pathth))).text
-    except TimeoutException:
+        #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]'
+        #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/span'
+        #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/text()'
+        
+        #pathth = '//*[@id="check-availability-search-section"]/div/div/div/div/span[2]/span'
+        classy ="as-retailavailabilitytrigger-value"
+        #check_item = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, pathth))).text
+        #check_item = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, classy))).text
+        
+        check_item = WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.CLASS_NAME, classy)))
+        
+    except (TimeoutException, StaleElementReferenceException):
         driver.refresh()
         return check_available(driver)
         
-    return check_item
+    return len(check_item)
 
 
 def runner():
@@ -78,7 +87,7 @@ def runner():
     time.sleep(1)
     driver.refresh()
     print(check_store(driver))
-    for x in range(len(urls_array)):
+    for x in range(10,len(urls_array)):
         time.sleep(1)
         driver.get(urls_array[x])
         print(check_available(driver))
