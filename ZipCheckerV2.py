@@ -49,6 +49,7 @@ def check_available(url_check, zipzip):
     pathpath = '/html/body/div[2]/div[8]/div[1]/form/div[3]/div/div[1]/div[1]/div/span[2]/button'
     #element = WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, pathpath)))
     #css_sel = '.rf-dude-quote-overlay-trigger'
+    
     def tryit():
         try:
             #Finds Zipcode Button and clicks it
@@ -56,38 +57,26 @@ def check_available(url_check, zipzip):
             b = driver.find_element_by_xpath(pathpath)
             driver.execute_script("arguments[0].click();", b)
             
-            element = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, pathpath)))
-            element.click()
-            time.sleep(10)
+            zipcode_input = WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="postalCode"]')))
+            
+            zipcode_input.clear()
+            zipcode_input.send_keys(str(zipzip))
+            WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="as-deliverydatesoverlay-addressform-button button merchandising"]'))).click()
+            
+            close_path = '/html/body/overlay[14]/materializer/div/div/button'
+            #close_class = "as-overlay-close ase-overlay-close"
+            b = driver.find_element_by_xpath(close_path)
+            driver.execute_script("arguments[0].click();", b)
+            #WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="as-overlay-close ase-overlay-close"]'))).click()
+            
+            
+            time.sleep(5)
             return
         except StaleElementReferenceException:
             return tryit()
     #print(len(element))
     tryit()
-    time.sleep(2)
     
-   #WebDriverWait(driver, 10).until(EC.visibility_of_elements_located((By.XPATH, '//button[@class="rf-pickup-quote-overlay-trigger as-retailavailabilitytrigger-infobutton retail-availability-search-trigger as-buttonlink"]'))).click()
-    '''
-    
-    #my_path = '//button[@class="rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink"]'
-    #ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
-    #WebDriverWait(driver, 2,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, my_path))).click()
-    
-    #element = driver.find_element_by_class("rf-dude-quote-overlay-trigger as-delivery-overlay-trigger as-purchaseinfo-dudetrigger as-buttonlink")
-    #driver.execute_script("arguments[0].scrollIntoView();", element)
-    
-    #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="rf-pickup-quote-overlay-trigger as-retailavailabilitytrigger-infobutton retail-availability-search-trigger as-buttonlink"]'))).click()
-    
-    zipcode_input = WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ii_searchreset"]')))
-    
-    zipcode_input.clear()
-    zipcode_input.send_keys(str(zipzip))
-    WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//button[@id="as-retailavailabilitysearch-searchbutton"]'))).click()
-    
-    
-    avail_text = WebDriverWait(driver, 2).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="as-storeitem-indicatortext large-12 small-6 column as-retailavailability-text ships-to-store "]')))
-    availability = avail_text.text
-    '''
     driver.quit()
     return True
 
