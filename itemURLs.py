@@ -24,9 +24,8 @@ url8 = "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch-silver-10-core-cp
 url9 = "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch-silver-10-core-cpu-16-core-gpu-1tb#"
 url10 = "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch-silver-10-core-cpu-32-core-gpu-1tb#"
 
-url11 = "https://www.apple.com/shop/buy-mac/macbook-pro/14-inch"
 
-urls_array = [url1,url2,url3,url4,url5,url6,url7,url8,url9,url10,url11]
+urls_array = [url1,url2,url3,url4,url5,url6,url7,url8,url9,url10]
 
 
 
